@@ -1,7 +1,10 @@
-const targetSelector =
-  "#react-root > div > div > div.css-1dbjc4n.r-18u37iz.r-13qz1uu.r-417010 > main > div > div > div > div.css-1dbjc4n.r-kemksi.r-1kqtdi0.r-1ljd8xs.r-13l2t4g.r-1phboty.r-16y2uox.r-1jgb5lz.r-11wrixw.r-61z16t.r-1ye8kvj.r-13qz1uu.r-184en5c";
-
 const container = document.createElement("div");
+let theme = "light";
+let backgroundColor = "#EDF1F2";
+let borderColor = "#2F3336";
+let buttonColor = "#1F2224";
+let buttonColorHover = "#1F2224";
+let textColor = "#E7E9EA";
 
 const waitForElement = async (selector) => {
   while (!document.querySelector(selector)) {
@@ -34,7 +37,7 @@ const injectButton = () => {
   wrapper.style.justifyContent = "center";
   wrapper.style.padding = "12px";
   wrapper.style.margin = "12px 0px";
-  wrapper.style.border = "1px solid #2F3336";
+  wrapper.style.border = `1px solid ${borderColor}`;
   wrapper.style.borderRight = "none";
   wrapper.style.borderLeft = "none";
 
@@ -42,14 +45,14 @@ const injectButton = () => {
   prompt.innerText =
     "Looks like this spaces haven't been summarized yet. Would you like to summarize it now?";
   prompt.style.marginBottom = "10px";
-  prompt.style.fontSize = "20px";
+  prompt.style.fontSize = "15px";
 
   const button = document.createElement("button");
   button.innerText = "Call Alphy";
   button.addEventListener("click", () => {
     window.location.href = "https://alphy.app";
   });
-  button.style.backgroundColor = "#EDF1F2";
+  button.style.backgroundColor = "#EFF3F4";
   button.style.border = "none";
   button.style.borderRadius = "9999px";
   button.style.padding = "10px 20px";
@@ -57,6 +60,14 @@ const injectButton = () => {
   button.style.fontSize = "16px";
   button.style.fontWeight = "bold";
   button.style.color = "rgb(56,61,64)";
+
+  button.onmouseover = function () {
+    button.style.backgroundColor = "#E7E9EA";
+  };
+  button.onmouseout = function () {
+    button.style.backgroundColor = "#EFF3F4";
+  };
+
   // Add custom button styles here
   wrapper.appendChild(prompt);
   wrapper.appendChild(button);
@@ -100,7 +111,7 @@ const createQAToggle = (question, answer) => {
 
   // Set up the main container
   qaElement.style.display = "flex";
-  qaElement.style.borderBottom = "0.1px solid #2F3336";
+  qaElement.style.borderBottom = `0.1px solid ${borderColor}`;
   qaElement.style.padding = "12px";
   qaElement.style.transition = "background-color 0.3s ease-in-out";
 
@@ -111,7 +122,7 @@ const createQAToggle = (question, answer) => {
   // craeate an image with 48 48 with full round and add it to the horizontal div as flex items start
   const img = document.createElement("img");
   img.src =
-    "https://pps.whatsapp.net/v/t61.24694-24/328739635_909547710387432_3889929867912741049_n.jpg?ccb=11-4&oh=01_AdRErrJz2BDEwF4yS6a3AUqK7nTb2defUSB99N-Jya9ECA&oe=643EED71";
+    "https://ph-files.imgix.net/ae970805-5426-4545-802e-c8e54546463a.png";
   img.style.width = "48px";
   img.style.height = "48px";
   img.style.borderRadius = "50%";
@@ -269,6 +280,14 @@ const createQAToggle = (question, answer) => {
   answerElement.textContent = answer;
   answerElement.style.display = "block";
 
+  qaElement.addEventListener("mouseover", () => {
+    // bgLayer.style.filter = "brightness(0.5)";
+  });
+
+  qaElement.addEventListener("mouseout", () => {
+    // bgLayer.style.filter = "brightness(1)";
+  });
+
   questionElement.addEventListener("click", () => {
     answerElement.style.display =
       answerElement.style.display === "none" ? "block" : "none";
@@ -278,13 +297,6 @@ const createQAToggle = (question, answer) => {
       watermark.style.display === "none" ? "block" : "none";
     shareDiv.style.display =
       shareDiv.style.display === "none" ? "flex" : "none";
-  });
-
-  qaElement.addEventListener("mouseover", () => {
-    qaElement.style.backgroundColor = "#090908";
-  });
-  qaElement.addEventListener("mouseout", () => {
-    qaElement.style.backgroundColor = "#010001";
   });
 
   // Append the elements to their respective containers
@@ -356,11 +368,11 @@ const renderQA = (qaData) => {
   askQuestion.style.alignItems = "center";
   askQuestion.style.padding = "12px 0px";
   askQuestion.style.margin = "0px 12px";
-  askQuestion.style.borderTop = "0.1px solid #2F3336";
+  askQuestion.style.borderTop = `0.1px solid ${borderColor}`;
 
   const askQuestionImage = document.createElement("img");
   askQuestionImage.src =
-    "https://pps.whatsapp.net/v/t61.24694-24/328739635_909547710387432_3889929867912741049_n.jpg?ccb=11-4&oh=01_AdRErrJz2BDEwF4yS6a3AUqK7nTb2defUSB99N-Jya9ECA&oe=643EED71";
+    "https://ph-files.imgix.net/ae970805-5426-4545-802e-c8e54546463a.png";
   askQuestionImage.style.width = "48px";
   askQuestionImage.style.height = "48px";
   askQuestionImage.style.borderRadius = "50%";
@@ -377,7 +389,7 @@ const renderQA = (qaData) => {
   askQuestionInput.style.padding = "12px 0px";
   askQuestionInput.style.fontSize = "20px";
   askQuestionInput.style.backgroundColor = "transparent";
-  askQuestionInput.style.color = "white";
+  askQuestionInput.style.color = `${textColor}`;
   //   on focus no border
   askQuestionInput.addEventListener("focus", () => {
     askQuestionInput.style.border = "none";
@@ -392,34 +404,32 @@ const renderQA = (qaData) => {
   askQuestionButton.style.border = "none";
   askQuestionButton.style.borderRadius = "9999px";
   askQuestionButton.style.padding = "0 16px";
-  askQuestionButton.style.backgroundColor = "#1C9BF1";
+  askQuestionButton.style.backgroundColor = `${buttonColor}`;
   askQuestionButton.style.color = "white";
   askQuestionButton.style.cursor = "pointer";
   askQuestionButton.style.marginLeft = "12px";
   askQuestionButton.style.height = "36px";
   askQuestionButton.disabled = true;
-  askQuestionButton.style.filter = "brightness(50%)";
+  askQuestionButton.style.filter = "brightness(80%)";
   //   if the input is empty, or if the input is more than 1000 characters, then disable the button
   askQuestionInput.addEventListener("input", () => {
     if (askQuestionInput.value.length === 0) {
       askQuestionButton.disabled = true;
-      askQuestionButton.style.filter = "brightness(50%)";
+      askQuestionButton.style.filter = "brightness(80%)";
     } else if (askQuestionInput.value.length > 1000) {
       askQuestionButton.disabled = true;
-      askQuestionButton.style.filter = "brightness(50%)";
+      askQuestionButton.style.filter = "brightness(80%)";
     } else {
       askQuestionButton.disabled = false;
-      askQuestionButton.style.backgroundColor = "#1C9BF1";
       askQuestionButton.style.filter = "brightness(100%)";
     }
   });
 
   askQuestionButton.addEventListener("mouseover", () => {
-    // blend darken
-    askQuestionButton.style.backgroundColor = "#1F8BD8";
+    askQuestionButton.style.backgroundColor = `${buttonColorHover}`;
   });
   askQuestionButton.addEventListener("mouseout", () => {
-    askQuestionButton.style.backgroundColor = "#1C9BF1";
+    askQuestionButton.style.backgroundColor = `${buttonColor}`;
   });
 
   askQuestion.appendChild(askQuestionImage);
@@ -471,7 +481,7 @@ const renderQA = (qaData) => {
   const hrLine = document.createElement("hr");
 
   hrLine.style.border = "none";
-  hrLine.style.borderTop = "0.1px solid #2F3336";
+  hrLine.style.borderTop = `0.1px solid ${borderColor}`;
 
   const qaContainer = document.createElement("div");
   qaContainer.id = "qa-container";
@@ -489,12 +499,31 @@ const renderQA = (qaData) => {
 };
 
 (async () => {
+  const targetSelector = '[aria-label="Home timeline"]';
   await waitForElement(targetSelector);
   const id = getIdFromUrl();
   container.id = "wrapper";
 
-  container.style.backgroundColor = "#010001";
-  container.style.color = "white";
+  // get the body, get the background color, and set theme variable accordingly
+  const body = document.querySelector("body");
+
+  if (body.style.backgroundColor === "rgb(255, 255, 255)") {
+    theme = "light";
+  } else if (body.style.backgroundColor === "rgb(0, 0, 0)") {
+    theme = "dark";
+  } else {
+    theme = "dim";
+  }
+  console.log("THEME: ", theme);
+
+  backgroundColor = theme === "light" ? "#EDF1F2" : "#1F2224";
+  borderColor = theme === "light" ? "#EFF3F4" : "#2F3336";
+  buttonColor = "#1C9BF1";
+  buttonColorHover = "#1F8BD8";
+  textColor = theme === "light" ? "#0F1419" : "#E7E9EA";
+
+  // container.style.backgroundColor = "#010001";
+  container.style.color = `${textColor}`;
   container.style.padding = "12px 0px";
   container.style.margin = "16px 0px";
   container.style.borderRadius = "12px";
