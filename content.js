@@ -177,7 +177,39 @@ const createQAToggle = (question, answer) => {
   shareWrapper.style.cursor = "pointer";
   //   on click, share a tweet with the question and answer
   shareWrapper.onclick = function () {
-    const tweet = `https://twitter.com/intent/tweet?text=${`🤔 ${question}`}%0A${`@alphyapp 🤖: ${answer}`}%0A%0A${`https://alphy.app/sp/${id}`}`;
+    const maxTweetLength = 280;
+    let baseText = "";
+    const initialLength =
+      `🤔 ${question}\n\n@alphyapp 🤖: ${answer}\n\nhttps://alphy.app/sp/${id}`
+        .length;
+    if (initialLength < maxTweetLength) {
+      baseText = `🤔 ${question}\n\n@alphyapp 🤖: ${answer}\n\nhttps://alphy.app/sp/${id}`;
+    } else {
+      baseText = `🤔 ${question} - a 🧵 by @alphyapp\n\n 🤖: ${answer}`;
+    }
+
+    const words = baseText.split(" ");
+    let currentTweet = "";
+    let tweetParts = [];
+
+    words.forEach((word) => {
+      if ((currentTweet + word).length > maxTweetLength - 4) {
+        tweetParts.push(currentTweet.trim() + "👇");
+        currentTweet = "";
+      }
+
+      currentTweet += word + " ";
+    });
+
+    tweetParts.push(currentTweet.trim());
+    const encodedTweetParts = tweetParts.map((part) =>
+      encodeURIComponent(part)
+    );
+    const tweet = `https://twitter.com/intent/tweet?text=${encodedTweetParts.join(
+      "%0A%0A"
+    )}`;
+
+    console.log(tweet);
 
     window.open(tweet);
   };
