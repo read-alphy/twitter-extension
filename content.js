@@ -177,7 +177,7 @@ const createQAToggle = (question, answer) => {
   shareWrapper.style.cursor = "pointer";
   //   on click, share a tweet with the question and answer
   shareWrapper.onclick = function () {
-    const tweet = `https://twitter.com/intent/tweet?text=${`🤔 ${question}`}%0A${`@alphyapp 🤖: ${answer}`}%0A%0A${`https://alphy.app/sp${id}`}`;
+    const tweet = `https://twitter.com/intent/tweet?text=${`🤔 ${question}`}%0A${`@alphyapp 🤖: ${answer}`}%0A%0A${`https://alphy.app/sp/${id}`}`;
 
     window.open(tweet);
   };
