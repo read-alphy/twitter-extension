@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Twitter Spaces Extension",
+  "version": "1.0",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["fonts/*"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "permissions": ["activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["https://twitter.com/i/spaces/*"],
+      "js": ["content.js"]
+    }
+  ]
+}
